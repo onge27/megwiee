@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You Are Appreciated</title>
+
+  <!-- Google Fonts: Poppins (body), Cormorant Garamond (elegant serif), Caveat (handwritten script) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ HERO SECTION: styled like a postcard ============ -->
+  <header class="hero">
+    <div class="container">
+      <div class="postcard fade-in">
+
+        <!-- Wax seal, top-left -->
+        <div class="wax-seal" aria-hidden="true">
+          <svg viewBox="0 0 100 100" width="60" height="60">
+            <circle cx="50" cy="50" r="48" fill="#7c8a6b"/>
+            <path d="M50 28 L56 44 L72 44 L59 54 L64 70 L50 60 L36 70 L41 54 L28 44 L44 44 Z"
+                  fill="#f6f1e7" opacity="0.85"/>
+          </svg>
+        </div>
+
+        <!-- Postage stamp, top-right -->
+        <div class="stamp" aria-hidden="true">
+          <svg viewBox="0 0 80 80" width="56" height="56">
+            <rect x="2" y="2" width="76" height="76" rx="4" fill="#eef2f0" stroke="#7a94a8" stroke-width="2" stroke-dasharray="4 3"/>
+            <circle cx="40" cy="38" r="10" fill="#d98ca3"/>
+            <path d="M40 30 C 36 24, 26 28, 30 36 C 33 42, 40 46, 40 46 C 40 46, 47 42, 50 36 C 54 28, 44 24, 40 30 Z" fill="#c76d86"/>
+          </svg>
+        </div>
+
+        <p class="postcard-label">Postcard</p>
+        <p class="to-line">to <span class="script">pelis</span></p>
+
+        <h1 class="hero-title">You Are <em>Appreciated</em></h1>
+        <p class="hero-subtitle">
+          A little note, written just for you
+        </p>
+
+        <!-- Pure CSS scroll: anchor link to the appreciation section -->
+        <a href="#appreciation" class="btn-primary">Read Message</a>
+
+        <!-- Botanical sprig, bottom-left corner -->
+        <div class="botanical-corner" aria-hidden="true">
+          <svg viewBox="0 0 120 160" width="80" height="110">
+            <path d="M20 150 C 25 110, 30 80, 45 40" stroke="#7c8a6b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <ellipse cx="38" cy="70" rx="14" ry="7" fill="#a9b98f" transform="rotate(-30 38 70)"/>
+            <ellipse cx="50" cy="55" rx="12" ry="6" fill="#c3d1a8" transform="rotate(-15 50 55)"/>
+            <ellipse cx="30" cy="95" rx="13" ry="6.5" fill="#a9b98f" transform="rotate(20 30 95)"/>
+            <circle cx="45" cy="38" r="6" fill="#f4e9c1"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ APPRECIATION SECTION ============ -->
+  <section id="appreciation" class="section section-cream">
+    <div class="container">
+      <div class="appreciation-card fade-in">
+        <p class="postcard-label small">A Little Note For You</p>
+        <p class="appreciation-text">
+          thank you for being a kind and genuine person.
+          you may not realize it, but your kindness has meant a lot to me.
+        </p>
+        <p class="signature">sincerely yours, <span class="script">kai</span></p>
+      </div>
+    </div>
+  </section>
+
+
+</body>
+</html>
