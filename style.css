@@ -1,0 +1,484 @@
+/* =====================================================
+   GLOBAL RESET & BASE STYLES
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* enables smooth scroll for "Read Message" button */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #faf6ef; /* warm cream, like postcard paper */
+  color: #4a3f35;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reusable container to control max width and center content */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Base section spacing */
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+/* Alternate warm cream sections (slightly deeper tone than body) */
+.section-cream {
+  background-color: #f1e9d8;
+}
+
+/* =====================================================
+   REVEAL-ON-CLICK (pure CSS :target trick, no JavaScript)
+   The appreciation section stays hidden until the person
+   clicks "Read Message", which links to #appreciation.
+===================================================== */
+#appreciation {
+  display: none;
+}
+
+#appreciation:target {
+  display: block;
+}
+
+/* Shared handwritten-script accent, used for small personal touches */
+.script {
+  font-family: 'Caveat', cursive;
+  font-size: 1.3em;
+  color: #c76d86;
+}
+
+/* =====================================================
+   FADE-IN ANIMATION (pure CSS, plays once on page load)
+===================================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.9s ease forwards;
+}
+
+/* Stagger reason cards slightly for a nicer effect */
+.reasons-grid .reason-card:nth-child(1) { animation-delay: 0.1s; }
+.reasons-grid .reason-card:nth-child(2) { animation-delay: 0.3s; }
+.reasons-grid .reason-card:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   HERO SECTION — styled like a postcard
+===================================================== */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  background-color: #faf6ef;
+}
+
+/* Perspective wrapper — gives the postcard room to tilt in 3D space */
+.hero .container {
+  perspective: 1400px;
+}
+
+/* The postcard itself: a bordered paper card with dashed edge, like a real postcard.
+   transform-style + z-index turn this into its own 3D stage, so the "stacked paper"
+   layer behind it (::before) and the tilt-on-hover effect both work correctly. */
+.postcard {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 70px 55px;
+  text-align: center;
+  background-color: #fdfbf6;
+  border: 1.5px dashed #cbb896;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(124, 106, 74, 0.12);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* A second "sheet of paper" peeking out from behind the postcard — pure CSS, no image */
+.postcard::before {
+  content: "";
+  position: absolute;
+  inset: 10px -10px -10px 10px;
+  background-color: #f1e9d8;
+  border: 1.5px dashed #d8c8a4;
+  border-radius: 16px;
+  z-index: -1;
+  transform: translateZ(-30px) rotate(-2deg);
+}
+
+/* Tilting the postcard in 3D on hover, like picking it up off a desk */
+.postcard:hover {
+  transform: rotateX(6deg) rotateY(-8deg) translateY(-10px) scale(1.015);
+  box-shadow: 0 35px 60px rgba(124, 106, 74, 0.22), 0 12px 24px rgba(124, 106, 74, 0.15);
+}
+
+/* Small uppercase label ("Postcard") mimicking the printed header on a real card */
+.postcard-label {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #9c8a6f;
+  margin-bottom: 18px;
+}
+
+.postcard-label.small {
+  margin-bottom: 26px;
+}
+
+.to-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #6b5a45;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: #3d3226;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: #c76d86;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #6b5f50;
+  margin-bottom: 36px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Primary button ("Read Message") — the bottom "edge" shadow gives it a raised, 3D feel */
+.btn-primary {
+  display: inline-block;
+  background-color: #d98ca3;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 14px 34px;
+  border-radius: 16px;
+  box-shadow:
+    0 5px 0 #b9718a,
+    0 8px 20px rgba(217, 140, 163, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #cc7994;
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 0 #b9718a,
+    0 14px 26px rgba(217, 140, 163, 0.45);
+}
+
+/* Pressed-down state — button dips into its own shadow, like a real 3D button */
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 2px 0 #b9718a,
+    0 4px 10px rgba(217, 140, 163, 0.35);
+}
+
+/* Decorative wax seal, top-left of the postcard */
+.wax-seal {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.15));
+  transform: rotate(-8deg);
+  animation: floatSeal 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Decorative postage stamp, top-right of the postcard */
+.stamp {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  transform: rotate(6deg);
+  animation: floatStamp 4.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Decorative botanical sprig, bottom-left of the postcard */
+.botanical-corner {
+  position: absolute;
+  bottom: -10px;
+  left: -6px;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: floatLeaf 5s ease-in-out infinite;
+  transform-origin: bottom left;
+}
+
+/* Gentle up-and-down drift, as if each element has a little weight and lift to it */
+@keyframes floatSeal {
+  0%, 100% { transform: rotate(-8deg) translateY(0) translateZ(20px); }
+  50%      { transform: rotate(-8deg) translateY(-6px) translateZ(20px); }
+}
+
+@keyframes floatStamp {
+  0%, 100% { transform: rotate(6deg) translateY(0) translateZ(20px); }
+  50%      { transform: rotate(6deg) translateY(-7px) translateZ(20px); }
+}
+
+@keyframes floatLeaf {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-6px) rotate(-3deg); }
+}
+
+/* =====================================================
+   SECTION TITLES (shared)
+===================================================== */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #3d3226;
+}
+
+.section-title.center {
+  text-align: center;
+}
+
+/* =====================================================
+   APPRECIATION SECTION — ruled note paper look
+===================================================== */
+.appreciation-card {
+  background-color: #fdfbf6;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 43px,
+    #e7dcc4 44px
+  );
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 60px 50px;
+  border-radius: 16px;
+  border: 1px solid #e7dcc4;
+  box-shadow: 0 10px 40px rgba(124, 106, 74, 0.08);
+  text-align: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.appreciation-card:hover {
+  box-shadow: 0 16px 50px rgba(124, 106, 74, 0.13);
+  transform: translateY(-4px);
+}
+
+.appreciation-text {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: #5c4f40;
+  margin-bottom: 28px;
+}
+
+.signature {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #7a6a52;
+}
+
+/* =====================================================
+   REASONS SECTION (3 cards grid)
+===================================================== */
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  perspective: 1000px; /* lets the cards below tilt in 3D on hover */
+}
+
+.reason-card {
+  background-color: #fdfbf6;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(124, 106, 74, 0.07);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-style: preserve-3d;
+}
+
+.reason-card:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(-5deg);
+  box-shadow: 0 20px 36px rgba(124, 106, 74, 0.16);
+}
+
+/* Icon sits inside a soft sage circle, echoing the wax seal */
+.icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+  font-size: 1.5rem;
+  background-color: #eef0e6;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.reason-card:hover .icon {
+  transform: scale(1.08) translateZ(20px);
+  background-color: #e2e6d4;
+}
+
+.reason-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #3d3226;
+}
+
+.reason-desc {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #7a6f60;
+}
+
+/* =====================================================
+   QUOTE SECTION — dashed postcard note box
+===================================================== */
+.quote-box {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 50px 40px;
+  background-color: #fdfbf6;
+  border: 1.5px dashed #cbb896;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(124, 106, 74, 0.07);
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.quote-box:hover {
+  box-shadow: 0 12px 36px rgba(124, 106, 74, 0.12);
+}
+
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #4a3f35;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+  text-align: center;
+  padding: 36px 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #9c8a70;
+  background-color: #faf6ef;
+}
+
+/* =====================================================
+   RESPONSIVE STYLES
+===================================================== */
+
+/* Tablets */
+@media (max-width: 900px) {
+  .reasons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .postcard {
+    padding: 50px 26px;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .appreciation-card {
+    padding: 40px 24px;
+  }
+
+  .reasons-grid {
+    grid-template-columns: 1fr; /* stack cards vertically */
+  }
+
+  .quote-box {
+    padding: 36px 24px;
+  }
+
+  .quote-text {
+    font-size: 1.05rem;
+  }
+
+  .wax-seal {
+    top: -14px;
+    left: -14px;
+    transform: rotate(-8deg) scale(0.85);
+  }
+
+  .stamp {
+    top: 14px;
+    right: 14px;
+    transform: rotate(6deg) scale(0.8);
+  }
+
+  .botanical-corner {
+    display: none; /* keeps mobile view uncluttered */
+  }
+
+  /* Softer 3D tilt on smaller screens, since hover isn't the primary interaction on touch */
+  .postcard:hover {
+    transform: rotateX(2deg) rotateY(-2deg) translateY(-6px) scale(1.01);
+  }
+
+  .reason-card:hover {
+    transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+  }
+}
